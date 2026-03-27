@@ -1,0 +1,183 @@
+Build a complete backend system for a web application called "Personal Sustainability Time-Machine".
+
+Tech Stack:
+- Python (FastAPI preferred, Flask acceptable)
+- PostgreSQL database
+- SQLAlchemy ORM
+- RESTful API design
+
+Core Requirements:
+The backend must support a sustainability intelligence system that tracks and analyzes:
+- Carbon emissions
+- Energy usage
+- Water usage
+- Waste generation
+- User behavioral patterns
+
+--------------------------------------------------
+
+DATABASE DESIGN:
+
+Create tables:
+
+1. Users
+- id
+- name
+- email
+- password
+- created_at
+
+2. ConsumptionData
+- id
+- user_id (FK)
+- category (travel, energy, water, waste)
+- activity
+- quantity
+- unit
+- date
+- emission_factor
+- emission_value
+
+3. Recommendations
+- id
+- user_id
+- suggestion
+- category
+- priority
+
+4. HabitData
+- id
+- user_id
+- habit_type
+- frequency
+- risk_level
+
+5. PaybackPlans
+- id
+- user_id
+- total_debt
+- monthly_target
+- duration
+
+6. EnergySimulation
+- id
+- user_id
+- baseline_energy
+- optimized_energy
+- energy_saved
+
+--------------------------------------------------
+
+CORE FUNCTIONALITIES:
+
+1. User Authentication
+- Signup / Login (JWT based)
+
+2. Data Entry API
+- POST /data
+- Validate inputs
+- Calculate emission_value:
+  emission = quantity * emission_factor
+
+3. Emission Calculation Logic
+Use predefined emission factors:
+- Car: 0.21 kg/km
+- Bus: 0.05 kg/km
+- Electricity: 0.82 kg/kWh
+- Water: 0.001 kg/L
+- Plastic: 6.0 kg/kg
+
+--------------------------------------------------
+
+4. Time-Rewind Simulation API
+- POST /simulate
+- Replace activities with eco alternatives
+- Calculate:
+  delta = original - alternative
+  percentage reduction
+
+--------------------------------------------------
+
+5. Recommendation Engine
+- Analyze highest emission categories
+- Generate suggestions:
+  - If travel high → suggest public transport
+  - If energy high → suggest efficient usage
+
+--------------------------------------------------
+
+6. Habit Detection
+- Calculate frequency:
+  frequency = occurrences / total_days
+- Classify:
+  >0.7 → High
+  0.3–0.7 → Medium
+  <0.3 → Low
+
+--------------------------------------------------
+
+7. Payback Planner
+- monthly_target = total_emission / duration
+
+--------------------------------------------------
+
+8. Digital Twin Simulation
+- energy_saved = baseline - optimized
+- efficiency = %
+
+--------------------------------------------------
+
+9. Sustainability Score
+- score = 100 - (carbon + energy + waste + water impact normalized)
+
+--------------------------------------------------
+
+10. External Data Integration
+Fetch data using APIs:
+- Weather API (energy usage insights)
+- Energy consumption datasets (mock if needed)
+- Allow fallback if API fails
+
+--------------------------------------------------
+
+API ENDPOINTS:
+
+/auth/signup
+/auth/login
+
+/data/add
+/data/get
+
+/simulate
+/recommendations
+/habits
+/payback
+/digital-twin
+/dashboard
+/reports
+
+--------------------------------------------------
+
+OUTPUT FORMAT:
+- JSON responses
+- Include:
+  - emissions
+  - savings
+  - recommendations
+  - risk levels
+  - score
+
+--------------------------------------------------
+
+EXTRA REQUIREMENTS:
+- Clean modular code
+- Separate files:
+  - models.py
+  - routes.py
+  - services.py
+- Proper error handling
+- CORS enabled for frontend
+
+--------------------------------------------------
+
+Make sure the backend integrates smoothly with a React frontend and supports real-time dashboard updates.
